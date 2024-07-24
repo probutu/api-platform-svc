@@ -1,0 +1,104 @@
+{
+  "$schema": "https://www.krakend.io/schema/krakend.json",
+  "version": 3,
+  "name": "API Gateway",
+  "extra_config": {
+    "telemetry/logging": {
+      "level": "WARNING",
+      "format": "logstash",
+      "syslog": true,
+      "stdout": true
+    },
+    "telemetry/metrics": {
+      "collection_time": "30s",
+      "listen_address": ":8090"
+    },
+    "telemetry/opentelemetry": {
+      "exporters": {
+        "prometheus": [
+          {
+            "name": "prometheus_exporters",
+            "listen_ip": "prometheus",
+            "port": 9090,
+            "process_metrics": true,
+            "go_metrics": true
+          }
+        ],
+        "otlp": [
+          {
+            "name": "local_otelcol",
+            "host": "otelcol",
+            "port": 4317
+          }
+        ]
+      }
+    },
+    "router": {
+      "disable_gzip": false,
+      "disable_access_log": true,
+      "hide_version_header": true
+    },
+    "auth/validator": {
+      "shared_cache_duration": 900,
+      "@comment": "Enable a JWK shared cache amongst all endpoints of 15 minutes"
+    }
+  },
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "output_encoding": "no-op",
+  "port": 8084,
+  "endpoints": [
+    {
+      "endpoint": "/v1/workspaces",
+      "method": "GET",
+      "input_headers": ["*"],
+      "extra_config": {
+        "auth/validator": {
+            "alg": "HS256",
+            "jwk_url": "https://accounts.smallbiznis.id/oauth/keys",
+            "cache_duration": 36000,
+            "cache": true,
+            "propagate_claims": [
+              ["sub", "X-User-ID"],
+              ["roles", "X-User-Roles"]
+            ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/v1/workspaces",
+          "sd": "static",
+          "host": [
+            "http://apiplatform:8080"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/v1/workspaces/{workspaceId}/requests/{requestId}",
+      "method": "GET",
+      "input_headers": ["*"],
+      "extra_config": {
+        "auth/validator": {
+            "alg": "HS256",
+            "jwk_url": "https://accounts.smallbiznis.id/oauth/keys",
+            "cache_duration": 36000,
+            "cache": true,
+            "propagate_claims": [
+              ["sub", "X-User-ID"],
+              ["roles", "X-User-Roles"]
+            ]
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/v1/requests?workspaceId={workspaceId}&requestId={requestId}",
+          "sd": "static",
+          "host": [
+            "http://apiplatform:8080"
+          ]
+        }
+      ]
+    }
+  ]
+}

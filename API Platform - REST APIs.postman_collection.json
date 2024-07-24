@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "073dde21-96b8-4a74-bbfb-f2739bc0b0d1",
+		"name": "API Platform - REST APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35025442"
+	},
+	"item": [
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URI}}/v1/collections?limit=10&offset=0",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"collections"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ":8081/v1/projects/:projectId/collections/:collectionId",
+							"port": "8081",
+							"path": [
+								"v1",
+								"projects",
+								":projectId",
+								"collections",
+								":collectionId"
+							],
+							"variable": [
+								{
+									"key": "projectId",
+									"value": ""
+								},
+								{
+									"key": "collectionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ":8081/v1/projects/:projectId/collections/:collectionId",
+							"port": "8081",
+							"path": [
+								"v1",
+								"projects",
+								":projectId",
+								"collections",
+								":collectionId"
+							],
+							"variable": [
+								{
+									"key": "projectId",
+									"value": ""
+								},
+								{
+									"key": "collectionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspaceId\": \"9960c806-0e80-44dd-95ca-3022be04eab3\",\n    \"collectionName\": \"Collection Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URI}}/v1/collections",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workspace",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspaceName\": \"example-workspace\",\n    \"workspaceDisplayName\": \"Example Workspace\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URI}}/v1/workspaces",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"workspaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URI}}/v1/workspaces",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"workspaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Folder",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"collectionId\": \"f04d5108-7033-4ce6-833d-a288ed275871\",\n    \"name\": \"Folder Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URI}}/v1/folders",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"folders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URI}}/v1/folders",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"folders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workspaceId\": \"9960c806-0e80-44dd-95ca-3022be04eab3\",\n    \"collectionId\": \"f04d5108-7033-4ce6-833d-a288ed275871\",\n    \"folderId\": null,\n    \"name\": \"Example Request 1\",\n    \"method\": \"GET\",\n    \"uri\": \"http://localhost:8000/api/v1/hello/1\",\n    \"params\": {\n        \"queries\": [],\n        \"paths\": []\n    },\n    \"headers\": [\n        {\n            \"key\": \"Content-Type\",\n            \"value\": \"application/json\"\n        }\n    ],\n    \"body\": {\n        \"hello\": \"world\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URI}}/v1/requests",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URI}}/v1/requests",
+							"host": [
+								"{{BASE_URI}}"
+							],
+							"path": [
+								"v1",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URI}}/metrics",
+					"host": [
+						"{{BASE_URI}}"
+					],
+					"path": [
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{CLIENT_SECRET}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{CLIENT_ID}}",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid email profile offline_access",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{OAUTH_URI}}/oauth/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{OAUTH_URI}}/oauth/authorize",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:3000/api/signin/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Example",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URI",
+			"value": "http://localhost:8084",
+			"type": "string"
+		},
+		{
+			"key": "ORGANIZATION",
+			"value": "accounts",
+			"type": "string"
+		},
+		{
+			"key": "OAUTH_URI",
+			"value": "https://{{ORGANIZATION}}.smallbiznis.id",
+			"type": "string"
+		},
+		{
+			"key": "CLIENT_ID",
+			"value": "c1e61dc053b1ec9ded053bd90a6bdbc9",
+			"type": "string"
+		},
+		{
+			"key": "CLIENT_SECRET",
+			"value": "21635f4b55e3729895aaa53881717742d3d57a0a026ec959d62956d577238fa6",
+			"type": "string"
+		}
+	]
+}

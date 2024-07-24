@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: krakend_monitor
+
+scrape_configs:
+  - job_name: krakend_scrapper
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+        - 'krakend_ce:9090'
+        labels:
+          app: krakend
+
+  - job_name: apiplatform
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+        - 'apiplatform:8080'
+        labels:
+          app: apiplatform
+          namespace: example
